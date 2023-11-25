@@ -1,0 +1,30 @@
+﻿<!-- Example: Index.cshtml -->
+@model List<UserDetail>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+
+    @await Html.PartialAsync("~/Views/Shared/_TablePartial.cshtml",Model)
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+            @*$.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts/1', // URL to fetch data from
+                type: 'GET', // HTTP method
+                dataType: 'json', // Type of data to expect back from the server
+                success: function(data){
+                    // Handle the successful response here
+                    console.log(data);
+                    $("#result").html("Title: " + data.title);
+                },
+                error: function(xhr, status, error){
+                    // Handle errors here
+                    console.error(xhr.responseText);
+                    $("#result").html("Error: " + xhr.status + " " + xhr.statusText);
+                }
+            });*@
+    });
+</script>

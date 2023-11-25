@@ -1,0 +1,48 @@
+﻿@model List< UserDetail>
+
+<section class="intro">
+    <div class="bg-image h-100" style="background-image: url(https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img7.jpg);">
+        <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="card mask-custom">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless text-white mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">NAME</th>
+                                                <th scope="col">EMAIL</th>
+                                                <th scope="col">PHONE</th>
+                                                <th scope="col">CREATED</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th scope="row">@item.UserName</th>
+                                                    <td>@item.Email</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.CreatedOn.ToString()</td>
+
+                                                </tr>
+                                            }
+
+                                                
+
+                                            
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
