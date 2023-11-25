@@ -1,9 +1,9 @@
-﻿@model List< UserDetail>
+﻿@model List<UserDetail>
 
 <section class="intro">
     <div class="bg-image h-100" style="background-image: url(https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img7.jpg);">
         <div class="mask d-flex align-items-center h-100">
-            <div class="container">
+            <div class="container-xxl">
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="card mask-custom">
@@ -16,6 +16,7 @@
                                                 <th scope="col">EMAIL</th>
                                                 <th scope="col">PHONE</th>
                                                 <th scope="col">CREATED</th>
+                                                <th scope="col">ACTION</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -23,18 +24,14 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <th scope="row">@item.UserName</th>
-                                                    <td>@item.Email</td>
-                                                    <td>@item.Phone</td>
+                                                    <th scope="row"><span class="MainSpanName_@item.ID">@item.UserName</span> <input hidden class="InputUpdateName_@item.ID" value="@item.UserName" />  </th>
+                                                    <td> <span class="MainSpanEmail_@item.ID">@item.Email</span> <input hidden class="InputUpdateEmail_@item.ID" value="@item.Email" /> </td>
+                                                    <td> <span class="MainSpanPhone_@item.ID">@item.Phone </span> <input hidden class="InputUpdatePhone_@item.ID" value="@item.Phone" /> </td>
                                                     <td>@item.CreatedOn.ToString()</td>
+                                                    <td> <i id='Edit_@item.ID' data-itemid="@item.ID" class="fa fa-edit pointer EditRow" style="padding:5Px"></i> <i id='Delete_@item.ID' data-itemid="@item.ID" class="fa fa-trash pointer DeleteRow" style="padding:5Px"></i> <i hidden id='Save_@item.ID' data-itemid="@item.ID" class="fas fa-save pointer SaveRow" style="padding:5Px" ></i> </td>
 
                                                 </tr>
                                             }
-
-                                                
-
-                                            
-
                                         </tbody>
                                     </table>
                                 </div>

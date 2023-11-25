@@ -32,7 +32,7 @@ namespace TemplateApplication.Controllers
         {
             string apiUrl = APIBaseURL + "products/GetNew";
             List<UserDetail>? result = new List<UserDetail>();
-
+            ViewBag.APIBaseURL = APIBaseURL;
             try
             {
                 using (HttpClient httpClient = new HttpClient())
