@@ -4,11 +4,10 @@ namespace TemplateApplication.Service.Interface
 {
     public interface IProductService
     {
-        Task<List<UserDetail>> GetProducts();
+        Task<List<UserDetail>> GetAllActiveUser();
         Task<UserDetail> GetProductById(int id);
-        Task AddProduct(UserDetail product);
-        Task UpdateProduct(UserDetail product);
-        Task DeleteProduct(int id);
+        Task <bool> AddUser(UserDetail UserInfo);
+        Task <bool> UpdateorDeleteUser(UserDetail UserInfo);
     }
 
 }

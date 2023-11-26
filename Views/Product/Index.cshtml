@@ -5,14 +5,69 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...your-sha-256-here..." crossorigin="anonymous" />
 <script src="~/js/table.js"></script>
 
-<html>
-    <head>
-    </head>
-    <body>
-    @await Html.PartialAsync("~/Views/Shared/_TablePartial.cshtml",Model)
-    </body>
-</html>
+<section class="intro">
+    <div class="bg-image h-100" style="background-image: url(https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img7.jpg);">
+        <div class="mask d-flex align-items-center h-100">
+            <div class="container-xxl">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="card mask-custom">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless text-white mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">NAME</th>
+                                                <th scope="col">EMAIL</th>
+                                                <th scope="col">PHONE</th>
+                                                <th scope="col">CREATED</th>
+                                                <th scope="col">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="MainTable">
 
+                                             @await Html.PartialAsync("~/Views/Shared/_TablePartial.cshtml",Model)
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<style>
+
+    html,
+body,
+.intro {
+    height: 100%;
+}
+
+table td,
+table th {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.mask-custom {
+    background: rgba(24, 24, 16, .2);
+    border-radius: 2em;
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+.pointer {
+    cursor: pointer;
+}
+</style>
 
 
 

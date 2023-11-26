@@ -4,10 +4,10 @@ namespace TemplateApplication.Repository.Interface
 {
     public interface IProductRepository
     {
-        Task<List<UserDetail>> GetProducts();
-        Task<UserDetail> GetProductById(int id);
-        Task AddProduct(UserDetail product);
-        Task UpdateProduct(UserDetail product);
-        Task DeleteProduct(int id);
+        Task<List<UserDetail>> GetAllActiveUser();
+        Task<UserDetail> GetUserById(int id);
+        Task <bool> AddUser(UserDetail UserInfo);
+        Task <bool> UpdateorDeleteUser(UserDetail UserInfo);
+
     }
 }

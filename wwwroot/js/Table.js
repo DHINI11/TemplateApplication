@@ -1,32 +1,30 @@
-﻿var BaseURL = $("#APIBaseURL").val();
+﻿var BaseURL;
 
 $(document).ready(function () {
 
-    $(".EditRow").click(function ( ) {
-        debugger;
-        let RowID = $(this).attr('data-itemid');
-        OpenEditOption(RowID);
-    });
-
-
-    $(".DeleteRow").click(function () {
-        debugger;
-        alert("The paragraph was clicked.");
-
-    });
-
-    $(".SaveRow").click(function () {
-        debugger;
-        let RowID = $(this).attr('data-itemid');
-        SaveChanges(RowID)
-    });
+    BaseURL = $("#APIBaseURL").val();
 
 });
 
+$(document).on('click', '.EditRow', function () {
+    let RowID = $(this).attr('data-itemid');
+    OpenEditOption(RowID);
+});
+
+$(document).on('click', '.DeleteRow', function () {
+    debugger;
+    let RowID = $(this).attr('data-itemid');
+    DeleteRow(RowID);
+});
+
+$(document).on('click', '.SaveRow', function () {
+    let RowID = $(this).attr('data-itemid');
+    SaveChanges(RowID)
+});
+
+
 function OpenEditOption(Id) {
-    $(".MainSpanEmail_" + Id).hide();
-    $(".MainSpanName_" + Id).hide();
-    $(".MainSpanPhone_" + Id).hide();
+    $(".MainSpan_" + Id).hide();
     $("#Edit_" + Id).hide(); 
     $("#Delete_" + Id).hide(); 
     $(".InputUpdateEmail_" + Id).removeAttr("hidden");
@@ -42,7 +40,7 @@ function SaveChanges (Id) {
     let UserName = $(".InputUpdateName_" + Id).val().trim();
     let Email = $(".InputUpdateEmail_" + Id).val().trim();
     let Phone = $(".InputUpdatePhone_" + Id).val().trim();  
-    let CallURL = BaseURL;
+
 
     if (UserName != "" && Email != "" && Phone != "")
     {
@@ -53,7 +51,8 @@ function SaveChanges (Id) {
             Phone: Phone
         };
 
-        DoAjax(CallURL, 'POST', postData, SuccessCallBack.Update, ErrorCallBack.Default)
+        let ActionCall = "Product/UpdateTableUser";
+        DoAjax(ActionCall, 'GET', postData, 'html', SuccessCallBack.Update, ErrorCallBack.Default)
 
     } else {
         console.log("Invalid Input");
@@ -64,14 +63,14 @@ function SaveChanges (Id) {
 function DeleteRow(Id) {
 
 
-    var CallURL = BaseURL;
-
     if (Id !="" ) {
         var postData = {
             ID: Id,
+            IsDeleted: true
         };
 
-        DoAjax(CallURL, 'POST', postData, SuccessCallBack.Delete, ErrorCallBack.Default)
+        let ActionCall = "Product/UpdateTableUser";
+        DoAjax(ActionCall, 'GET', postData, 'html', SuccessCallBack.Update, ErrorCallBack.Default)
 
     } else {
         console.log("Invalid Input");
@@ -93,7 +92,7 @@ function AddNewRow() {
             Phone: Phone
         };
 
-        DoAjax(CallURL, 'POST', postData, SuccessCallBack.AddNew, ErrorCallBack.Default)
+        DoAjax(CallURL, 'POST', JSON.stringify(postData),'json', SuccessCallBack.AddNew, ErrorCallBack.Default);
 
     } else {
         console.log("Invalid Input");
@@ -103,41 +102,52 @@ function AddNewRow() {
 
 
 var SuccessCallBack = {
-    Default: function () {
+    Default: function (response) {
         ////Common Success
         console.log('Function 1');
     },
-    Delete: function () {
+    Delete: function (response) {
         console.log('Function 2');
     },
-    Update: function () {
-        console.log('Function 2');
+    Update: function (response) {
+        debugger;
+        $("#MainTable").html(response);
     },
-    AddNew: function () {
+    AddNew: function (response) {
         console.log('Function 2');
     }
 
 };
 
 var ErrorCallBack = {
-    Default: function () {
-        //Common Exception Log
+    Default: function (jqXHR, textStatus, errorThrown) {
+        debugger;
         console.log('Function 1');
     },
-    func2: function () {
+    func2: function (jqXHR, textStatus, errorThrown) {
         console.log('Function 2');
     }
   
 };
 
 
-function DoAjax (url, method, data, successCallback, errorCallback) {
+
+function DoAjax(url, method, data, dataType = 'json', successCallback, errorCallback) {
     $.ajax({
         url: url,
-        type: method,
+        method: method,
+        contentType: 'application/json',
         data: data,
-        dataType: 'json',
-        success: successCallback,
-        error: errorCallback
+        dataType: dataType,// 'json' or html
+        success: function (response) {
+            if (successCallback && typeof successCallback === 'function') {
+                successCallback(response);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (errorCallback && typeof errorCallback === 'function') {
+                errorCallback(jqXHR, textStatus, errorThrown);
+            }
+        }
     });
 }

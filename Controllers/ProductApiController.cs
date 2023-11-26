@@ -18,37 +18,66 @@ namespace TemplateApplication.Controllers
             _productService = productService;
         }
 
-        [Route("GetNew")]
+        [Route("GetTableData")]
         [HttpGet]
-        public Task<List<UserDetail>> GetNew()
+        public Task<List<UserDetail>> GetTableData()
         {
-            return _productService.GetProducts();
+            return _productService.GetAllActiveUser();
         }
 
-        // GET api/<ProductApiController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ProductApiController>
+        [Route("UpdateUser")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Task<bool> UpdateUser(UserDetail ?UserInfo)
         {
+
+            try
+            {
+                if (UserInfo != null)
+                {
+                    return _productService.UpdateorDeleteUser(UserInfo);
+
+                }
+                else {
+
+                    return  Task.FromResult(false);
+                }
+
+
+            }
+            catch(Exception ex)
+            {
+                return Task.FromResult(false);
+            }
+            
         }
 
-        // PUT api/<ProductApiController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Route("AddUser")]
+        [HttpPost]
+        public Task<bool> AddNewUser(UserDetail UserInfo)
         {
+
+            try
+            {
+                if (UserInfo == null)
+                {
+
+                    return _productService.AddUser(UserInfo);
+
+                }
+                else
+                {
+                    return Task.FromResult(false);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(false);
+            }
+
         }
 
-        // DELETE api/<ProductApiController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
 
 
     }

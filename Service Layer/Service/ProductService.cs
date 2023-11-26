@@ -13,29 +13,25 @@ namespace TemplateApplication.Service.Repository
             _repository = repository;
         }
 
-        public Task AddProduct(UserDetail product)
+        public Task<bool> AddUser(UserDetail UserInfo)
         {
-            throw new NotImplementedException();
+            return _repository.AddUser(UserInfo);
         }
 
-        public Task DeleteProduct(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<UserDetail> GetProductById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<UserDetail>> GetProducts()
+        public Task<List<UserDetail>> GetAllActiveUser()
         {
-           return _repository.GetProducts();
+           return _repository.GetAllActiveUser();
         }
 
-        public Task UpdateProduct(UserDetail product)
+        public Task<bool> UpdateorDeleteUser(UserDetail UserInfo)
         {
-            throw new NotImplementedException();
+            return _repository.UpdateorDeleteUser(UserInfo);
         }
 
         // Implement service methods
