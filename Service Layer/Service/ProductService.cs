@@ -13,9 +13,13 @@ namespace TemplateApplication.Service.Repository
             _repository = repository;
         }
 
-        public Task<bool> AddUser(UserDetail UserInfo)
+        public async Task<List<UserDetail>> AddUser(UserDetail UserInfo)
         {
-            return _repository.AddUser(UserInfo);
+            
+            var result = await _repository.AddUser(UserInfo);
+            var data = await GetAllActiveUser();
+            return data;
+
         }
 
 

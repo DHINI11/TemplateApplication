@@ -4,8 +4,11 @@ $(document).ready(function () {
 
     BaseURL = $("#APIBaseURL").val();
 
-});
+    $("#addnewRowitem").click(function () {
+        AddNewRow();
+    });
 
+});
 $(document).on('click', '.EditRow', function () {
     let RowID = $(this).attr('data-itemid');
     OpenEditOption(RowID);
@@ -23,6 +26,9 @@ $(document).on('click', '.SaveRow', function () {
 });
 
 
+$("#addnewRowitem").click(function () {
+    AddNewRow();
+});
 function OpenEditOption(Id) {
     $(".MainSpan_" + Id).hide();
     $("#Edit_" + Id).hide(); 
@@ -79,11 +85,11 @@ function DeleteRow(Id) {
 
 function AddNewRow() {
 
-    let UserName = $("#InputName").val().trim();
+    let UserName = $("#InputUserName").val().trim();
     let Email = $("#InputEmail").val().trim();
     let Phone = $("#InputPhone").val().trim();
 
-    var CallURL = BaseURL;
+    var CallURL = BaseURL + "products/AddUser";
 
     if (UserName != "" && Email != "" && Phone != "") {
         var postData = {
@@ -113,8 +119,11 @@ var SuccessCallBack = {
         debugger;
         $("#MainTable").html(response);
     },
-    AddNew: function (response) {
-        console.log('Function 2');
+    AddNew: function (data) {
+        debugger;
+        //Implement Partial Load
+        $('#AddNewItem').modal('hide');
+        location.reload();
     }
 
 };
@@ -122,7 +131,7 @@ var SuccessCallBack = {
 var ErrorCallBack = {
     Default: function (jqXHR, textStatus, errorThrown) {
         debugger;
-        console.log('Function 1');
+        $('#AddNewItem').modal('hide');
     },
     func2: function (jqXHR, textStatus, errorThrown) {
         console.log('Function 2');

@@ -6,7 +6,7 @@ namespace TemplateApplication.Service.Interface
     {
         Task<List<UserDetail>> GetAllActiveUser();
         Task<UserDetail> GetProductById(int id);
-        Task <bool> AddUser(UserDetail UserInfo);
+        Task<List<UserDetail>> AddUser(UserDetail UserInfo);
         Task <bool> UpdateorDeleteUser(UserDetail UserInfo);
     }
 

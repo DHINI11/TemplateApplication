@@ -53,29 +53,10 @@ namespace TemplateApplication.Controllers
 
         [Route("AddUser")]
         [HttpPost]
-        public Task<bool> AddNewUser(UserDetail UserInfo)
+        public async Task<List<UserDetail>> AddNewUser(UserDetail UserInfo)
         {
 
-            try
-            {
-                if (UserInfo == null)
-                {
-
-                    return _productService.AddUser(UserInfo);
-
-                }
-                else
-                {
-                    return Task.FromResult(false);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                return Task.FromResult(false);
-            }
-
+           return await _productService.AddUser(UserInfo);
         }
 
 

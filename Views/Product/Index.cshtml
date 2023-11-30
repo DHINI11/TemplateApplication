@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...your-sha-256-here..." crossorigin="anonymous" />
 <script src="~/js/table.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
+
+
 <section class="intro">
     <div class="bg-image h-100" style="background-image: url(https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img7.jpg);">
         <div class="mask d-flex align-items-center h-100">
@@ -30,6 +36,12 @@
 
                                         </tbody>
                                     </table>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddNewItem">
+                                            Add New Item
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -74,3 +86,55 @@ table th {
 
 
 <input type="hidden" id="APIBaseURL" value="@ViewBag.APIBaseURL" />
+
+
+
+<script id="tableTemplate" type="text/template">
+    debugger;
+    {{each response}}
+    <tr>
+        <th scope="row"><span class="MainSpan_${response.ID}">${response.UserName}</span> <input hidden class="InputUpdateName_${response.ID}" value="${response.UserName}" />  </th>
+        <td> <span class="MainSpan_${response.ID}">${response.Email} </span> <input hidden class="InputUpdateEmail_${response.ID}" value="${response.Email}" /> </td>
+        <td> <span class="MainSpan_${response.ID}">${response.Phone} </span> <input hidden class="InputUpdatePhone_${response.ID}" value="${response.Phone}" /> </td>
+        <td>${response.CreatedOn}</td>
+        <td> <i id='Edit_${response.ID}' data-itemid="${response.ID}" class="fa fa-edit pointer EditRow" style="padding:5Px"></i> <i id='Delete_${response.ID}' data-itemid="${response.ID}" class="fa fa-trash pointer DeleteRow" style="padding:5Px"></i> <i hidden id='Save_${response.ID}' data-itemid="${response.ID}" class="fas fa-save pointer SaveRow" style="padding:5Px" ></i> </td>
+
+    </tr>
+
+     {{/each}}
+</script>
+
+
+<div class="modal fade" id="AddNewItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="InputUserName">Name</label>
+                    <input type="text" class="form-control" id="InputUserName" placeholder="User Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="InputEmail">Email address</label>
+                    <input type="email" class="form-control" id="InputEmail"  placeholder="Name@yopmail.com">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="InputPhone">Phone No</label>
+                    <input type="text" class="form-control" id="InputPhone" placeholder="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="addnewRowitem" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
